@@ -1638,15 +1638,20 @@
             `;
             const tbody = optionsTable.querySelector('tbody');
             options.forEach((opt) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${opt.key}</td>
-                    <td>${opt.text||''}</td>
-                    <td>${opt.perf||''}</td>
-                    <td>${opt.pbc||''}</td>
-                `;
-                tbody.appendChild(row);
-            });
+    const row = document.createElement('tr');
+    // Highlight if this is the correct answer
+    if (opt.key === (q.correct_answer || '').toUpperCase()) {
+        row.style.background = "#d9ead3";      // Light green highlight
+        row.style.fontWeight = "bold";         // Optional: make text bold too
+    }
+    row.innerHTML = `
+        <td>${opt.key}</td>
+        <td>${opt.text||''}</td>
+        <td>${opt.perf||''}</td>
+        <td>${opt.pbc||''}</td>
+    `;
+    tbody.appendChild(row);
+});
             optionsTable.appendChild(tbody);
             card.appendChild(optionsTable);
 
